@@ -16,5 +16,7 @@ import java.util.Map;
 public interface PmFinishAttachService extends IService<PmFinishAttachEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    PmFinishAttachEntity findByFinishInfoId(Integer finishInfoId);
 }
 

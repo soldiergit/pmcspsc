@@ -87,4 +87,16 @@ public class PmFinishInfoController {
         return R.ok();
     }
 
+    /**
+     * 审批
+     */
+    @RequestMapping("/apply")
+    @RequiresPermissions("pm:item:info")
+    public R apply(@RequestParam Map<String, Object> params){
+
+        pmFinishInfoService.apply(params);
+
+        return R.ok();
+    }
+
 }

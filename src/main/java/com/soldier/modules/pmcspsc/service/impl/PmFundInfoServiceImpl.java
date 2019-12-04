@@ -26,4 +26,22 @@ public class PmFundInfoServiceImpl extends ServiceImpl<PmFundInfoDao, PmFundInfo
         return new PageUtils(page);
     }
 
+    @Override
+    public PmFundInfoEntity findByItemInfoId(Integer itemInfoId) {
+
+        QueryWrapper<PmFundInfoEntity> qw = new QueryWrapper<>();
+        qw.eq("item_info_id", itemInfoId);
+
+        return baseMapper.selectOne(qw);
+    }
+
+    @Override
+    public PmFundInfoEntity findByFinishInfoId(Integer finishInfoId) {
+
+        QueryWrapper<PmFundInfoEntity> qw = new QueryWrapper<>();
+        qw.eq("finish_info_id", finishInfoId);
+
+        return baseMapper.selectOne(qw);
+    }
+
 }

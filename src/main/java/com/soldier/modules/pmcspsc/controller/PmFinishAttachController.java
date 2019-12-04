@@ -1,21 +1,25 @@
 package com.soldier.modules.pmcspsc.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import com.soldier.common.utils.ConfigConstant;
+import com.soldier.common.utils.FileUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.soldier.modules.pmcspsc.entity.PmFinishAttachEntity;
 import com.soldier.modules.pmcspsc.service.PmFinishAttachService;
 import com.soldier.common.utils.PageUtils;
 import com.soldier.common.utils.R;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -85,6 +89,53 @@ public class PmFinishAttachController {
 		pmFinishAttachService.removeByIds(Arrays.asList(attachIds));
 
         return R.ok();
+    }
+
+    /**
+     * 文件上传
+     * @param files
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/upload")
+    public Object uploadFile(@RequestParam("file") List<MultipartFile> files, HttpServletRequest request) {
+
+        String UPLOAD_FILES_PATH = ConfigConstant.UPLOAD_FILE_SAVE_PATH + "/"+ RandomUtils.nextLong()+"/";
+
+        if (Objects.isNull(files) || files.isEmpty()) {
+            return R.error("文件为空，请重新上传");
+        }
+
+        PmFinishAttachEntity pmFinishAttachEntity = null;
+
+        for(MultipartFile file : files){
+            String fileName = file.getOriginalFilename();
+            String result = null;
+            try {
+                result = FileUtils.upLoad(UPLOAD_FILES_PATH, fileName, file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (!result.equals("true")) {
+                R.error(result);
+            }
+            UPLOAD_FILES_PATH += fileName;
+            pmFinishAttachEntity = new PmFinishAttachEntity();
+            pmFinishAttachEntity.setAttachName(fileName);
+            pmFinishAttachEntity.setAttachPath(UPLOAD_FILES_PATH);
+        }
+        return R.ok("文件上传成功").put("pmFinishAttachEntity", pmFinishAttachEntity);
+    }
+
+    /**
+     * 文件下载
+     * @param response
+     * @param request
+     */
+    @PostMapping(value = "/download")
+    public void downloadFile(final HttpServletResponse response, final HttpServletRequest request) {
+        String filePath = request.getParameter("filePath");
+        FileUtils.download(response, filePath);
     }
 
 }

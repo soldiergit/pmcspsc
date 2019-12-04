@@ -26,4 +26,13 @@ public class PmFinishAttachServiceImpl extends ServiceImpl<PmFinishAttachDao, Pm
         return new PageUtils(page);
     }
 
+    @Override
+    public PmFinishAttachEntity findByFinishInfoId(Integer finishInfoId) {
+
+        QueryWrapper<PmFinishAttachEntity> qw = new QueryWrapper<>();
+        qw.eq("finish_info_id", finishInfoId);
+
+        return baseMapper.selectOne(qw);
+    }
+
 }

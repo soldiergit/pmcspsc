@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.soldier.common.utils.PageUtils;
@@ -62,6 +63,29 @@ public class PmItemInfoServiceImpl extends ServiceImpl<PmItemInfoDao, PmItemInfo
     }
 
     /**
+     * 查询教师的所有立项项目
+     * @param userId
+     */
+    @Override
+    public List<PmItemInfoEntity> findItemByUserId(Integer userId) {
+
+        QueryWrapper ew = new QueryWrapper<PmItemInfoEntity>().setEntity(new PmItemInfoEntity());
+
+        ew.eq("user_id", userId);
+
+        return super.list(ew);
+    }
+
+    /**
+     * 简单的更新自身，不更新其它表数据
+     * @param itemInfoEntity
+     */
+    @Override
+    public void updateBySimple(PmItemInfoEntity itemInfoEntity) {
+        super.updateById(itemInfoEntity);
+    }
+
+    /**
      * 重写底层方法：保存--因为还要保存经费预算/实际支出信息 和 附件
      * @param entity
      */
@@ -78,7 +102,7 @@ public class PmItemInfoServiceImpl extends ServiceImpl<PmItemInfoDao, PmItemInfo
         pia.setItemInfoId(entity.getItemInfoId());
 
         //合计预算
-        pfi.setTotalCost(pfi.getRegisterCost()+pfi.getTravelCost()+pfi.getTrainCost()+pfi.getReviewCost()+pfi.getGuideCost()+pfi.getLeaderCost()+pfi.getOrganizeCost()+pfi.getConsumablesCost()+pfi.getAwardCost()+pfi.getAnotherCost());
+        pfi.setTotalCost(pfi.getTotalCost());
 
         //  保存经费预算/实际支出信息 和 附件
         pmItemAttachService.save(pia);

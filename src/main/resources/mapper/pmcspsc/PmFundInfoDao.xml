@@ -7,6 +7,7 @@
     <resultMap type="com.soldier.modules.pmcspsc.entity.PmFundInfoEntity" id="pmFundInfoMap">
         <result property="budgetId" column="budget_id"/>
         <result property="itemInfoId" column="item_info_id"/>
+        <result property="finishInfoId" column="finish_info_id"/>
         <result property="registerCost" column="register_cost"/>
         <result property="travelCost" column="travel_cost"/>
         <result property="trainCost" column="train_cost"/>

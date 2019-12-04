@@ -6,15 +6,51 @@
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.soldier.modules.pmcspsc.entity.PmTeamInfoEntity" id="pmTeamInfoMap">
         <result property="teamId" column="team_id"/>
-        <result property="teamCode" column="team_code"/>
         <result property="itemInfoId" column="item_info_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="teamCode" column="team_code"/>
         <result property="itemInfoCode" column="item_info_code"/>
         <result property="matchTitle" column="match_title"/>
         <result property="signUpTime" column="sign_up_time"/>
         <result property="awardGrade" column="award_grade"/>
         <result property="awardInfo" column="award_info"/>
         <result property="teamInfoIsDel" column="team_info_is_del"/>
+        <!--    使用collection实现一对多   -->
+        <collection property="pmTeamPersonInfoEntities" ofType="com.soldier.modules.pmcspsc.entity.PmTeamPersonInfoEntity">
+            <result property="personInfoId" column="person_info_id"/>
+            <result property="personTeamInfoId" column="person_team_info_id"/>
+            <result property="personCode" column="person_code"/>
+            <result property="personName" column="person_name"/>
+            <result property="personInstitute" column="person_institute"/>
+            <result property="personClass" column="person_class"/>
+            <result property="personGrade" column="person_grade"/>
+            <result property="personMajor" column="person_major"/>
+            <result property="personEmail" column="person_email"/>
+            <result property="personPhone" column="person_phone"/>
+            <result property="personInfoIsDel" column="person_info_is_del"/>
+        </collection>
     </resultMap>
 
+    <!--使用左连接查询pti的全部数据和ptpi满足where条件的数据-->
+    <select id="findById" parameterType="java.lang.Integer" resultMap="pmTeamInfoMap">
+        select * from pm_team_info pti
+        left join pm_team_person_info ptpi
+        on pti.team_id = ptpi.person_team_info_id
+        where pti.team_id = #{teamId}
+    </select>
+
+    <select id="findByItemId" parameterType="java.lang.Integer" resultMap="pmTeamInfoMap">
+        select * from pm_team_info pti
+        left join pm_team_person_info ptpi
+        on pti.team_id = ptpi.person_team_info_id
+        where pti.item_info_id = #{itemInfoId}
+    </select>
+
+    <select id="findByUserId" parameterType="java.lang.Long" resultMap="pmTeamInfoMap">
+        select * from pm_team_info pti
+        left join pm_team_person_info ptpi
+        on pti.team_id = ptpi.person_team_info_id
+        where pti.user_id = #{userId}
+    </select>
 
 </mapper>

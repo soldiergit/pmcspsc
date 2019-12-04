@@ -8,7 +8,7 @@
         <result property="finishInfoId" column="finish_info_id"/>
         <result property="itemInfoId" column="item_info_id"/>
         <result property="finishIsDel" column="finish_is_del"/>
+        <result property="userId" column="user_id"/>
+        <result property="userId" column="user_id"/>
     </resultMap>
-
-
 </mapper>

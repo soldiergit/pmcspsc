@@ -15,6 +15,19 @@ import java.util.Map;
  */
 public interface PmFundInfoService extends IService<PmFundInfoEntity> {
 
+    /**
+     * 分页
+     */
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 根据项目立项id查询
+     */
+    PmFundInfoEntity findByItemInfoId (Integer itemInfoId);
+
+    /**
+     * 根据结题赛事id查询
+     */
+    PmFundInfoEntity findByFinishInfoId (Integer finishInfoId);
 }
 

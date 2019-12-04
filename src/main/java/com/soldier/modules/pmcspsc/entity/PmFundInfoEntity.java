@@ -29,6 +29,10 @@ public class PmFundInfoEntity implements Serializable {
 	 */
 	private Integer itemInfoId;
 	/**
+	 * 结题Id
+	 */
+	private Integer finishInfoId;
+	/**
 	 * 参赛注册费
 	 */
 	private Double registerCost;
@@ -77,4 +81,7 @@ public class PmFundInfoEntity implements Serializable {
 	 */
 	private Integer budgetInfoIsDel;
 
+	public Double getTotalCost() {
+		return this.getRegisterCost()+this.getTravelCost()+this.getTrainCost()+this.getReviewCost()+this.getGuideCost()+this.getLeaderCost()+this.getOrganizeCost()+this.getConsumablesCost()+this.getAwardCost()+this.getAnotherCost();
+	}
 }
