@@ -32,7 +32,7 @@ public class PmTeamInfoServiceImpl extends ServiceImpl<PmTeamInfoDao, PmTeamInfo
         Object key = params.get("key");
         Object userId = params.get("userId");
         Object itemInfoId = params.get("itemInfoId");
-        if (key!=null&&key!="")ew.like("match_name",key);
+        if (key!=null&&key!="")ew.like("match_title",key);
         if (userId!=null&&userId!="")ew.eq("user_id",userId);
         if (itemInfoId!=null&&itemInfoId!="")ew.eq("item_info_id",itemInfoId);
 
