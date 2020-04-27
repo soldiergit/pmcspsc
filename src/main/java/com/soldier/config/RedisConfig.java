@@ -36,26 +36,41 @@ public class RedisConfig {
         return redisTemplate;
     }
 
+    /**
+     * 操作hash
+     */
     @Bean
     public HashOperations<String, String, Object> hashOperations(RedisTemplate<String, Object> redisTemplate) {
         return redisTemplate.opsForHash();
     }
 
+    /**
+     * 操作字符串
+     */
     @Bean
     public ValueOperations<String, String> valueOperations(RedisTemplate<String, String> redisTemplate) {
         return redisTemplate.opsForValue();
     }
 
+    /**
+     * 操作list
+     */
     @Bean
     public ListOperations<String, Object> listOperations(RedisTemplate<String, Object> redisTemplate) {
         return redisTemplate.opsForList();
     }
 
+    /**
+     * 操作set
+     */
     @Bean
     public SetOperations<String, Object> setOperations(RedisTemplate<String, Object> redisTemplate) {
         return redisTemplate.opsForSet();
     }
 
+    /**
+     * 操作有序set
+     */
     @Bean
     public ZSetOperations<String, Object> zSetOperations(RedisTemplate<String, Object> redisTemplate) {
         return redisTemplate.opsForZSet();

@@ -105,3 +105,47 @@ CREATE SCHEMA pmcspsc DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
         教务处实验实践科工作人员可以统计竞赛立项情况、获奖情况。
       </li>
     </ul>
+<br>
+
+## `2020.04.27重构`
+### `使用RabbitMQ消息中间件`
+#### RabbitMQ的安装
+1. 下载[Erlang](https://www.rabbitmq.com/releases/erlang/)<br>
+2. 下载[RabbitMQ](https://www.rabbitmq.com/releases/rabbitmq-server/)<br>
+3. 根据系统版本下载[socat](http://repo.iotti.biz/CentOS/)<br>
+```C
+查看系统版本信息：lsb_release -a
+```
+4. 分别安装Erlang、Socat、RabbitMQ（一定按照顺序！）<br>
+```C
+wget https://www.rabbitmq.com/releases/erlang/erlang-19.0.4-1.el7.centos.x86_64.rpm
+wget https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.15/rabbitmq-server-3.6.15-1.el6.noarch.rpm
+wget http://repo.iotti.biz/CentOS/7/x86_64/socat-1.7.3.2-5.el7.lux.x86_64.rpm
+rpm -ivh erlang-19.0.4-1.el7.centos.x86_64.rpm
+rpm -ivh socat-1.7.3.2-5.el7.lux.x86_64.rpm
+rpm -ivh rabbitmq-server-3.6.15-1.el6.noarch.rpm
+```
+5. 配置rabbitmq<br>
+```C
+vi /usr/lib/rabbitmq/lib/rabbitmq_server-3.6.15/ebin/rabbit.app
+将 {loopback_users, [<<"guest">>]} 改为 {loopback_users, []}
+```
+6. 安装管理插件：rabbitmq-plugins enable rabbitmq_management<br>
+7. 启动RabbitMQ，然后访问IP:5672/，默认用户名密码：guest即可查看<br>
+```C
+cd /usr/lib/rabbitmq/bin
+./rabbitmq-server start
+```
+#### RabbitMQ的配置
+[SpringBoot + RabbitMQ配置参数解释](https://www.cnblogs.com/qts-hope/p/11242559.html)
+
+### `安全优化`
+#### 接口的限流防刷
+自定义Prevent注解，可以使用拦截器减少对业务的侵入
+```C
+总结：
+定义一切面，通过@Prevent注解作为切入点、在该切面的前置通知获取该方法的所有入参并将其Base64编码，
+项目名称 + 完整方法名作为redis的key + 用户id，访问次数作为reids的value，
+Prevent的value作为redis的expire，存入redis；
+每次进来这个切面根据key判断redis值是否存在，不存在则设value为1且允许调用；存在则判断是否超过frequency，不超过自增；超出拦截防刷
+```

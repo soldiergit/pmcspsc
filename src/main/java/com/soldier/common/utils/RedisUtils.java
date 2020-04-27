@@ -22,6 +22,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class RedisUtils {
+
+    // 注入的这些bean，具体用途查看RedisConfig.class
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
     @Autowired
@@ -40,8 +42,10 @@ public class RedisUtils {
     public final static long NOT_EXPIRE = -1;
     private final static Gson gson = new Gson();
 
+    // 以下均只操作字符串类型数值，其它类型请自己添加
     public void set(String key, Object value, long expire){
         valueOperations.set(key, toJson(value));
+        //soldier:重新设置过期时间为expire，刷新时间
         if(expire != NOT_EXPIRE){
             redisTemplate.expire(key, expire, TimeUnit.SECONDS);
         }
@@ -53,6 +57,7 @@ public class RedisUtils {
 
     public <T> T get(String key, Class<T> clazz, long expire) {
         String value = valueOperations.get(key);
+        //soldier:重新设置过期时间为expire，刷新时间
         if(expire != NOT_EXPIRE){
             redisTemplate.expire(key, expire, TimeUnit.SECONDS);
         }
@@ -65,6 +70,7 @@ public class RedisUtils {
 
     public String get(String key, long expire) {
         String value = valueOperations.get(key);
+        //soldier:重新设置过期时间为expire，刷新时间
         if(expire != NOT_EXPIRE){
             redisTemplate.expire(key, expire, TimeUnit.SECONDS);
         }
@@ -77,6 +83,16 @@ public class RedisUtils {
 
     public void delete(String key) {
         redisTemplate.delete(key);
+    }
+
+    // 自增
+    public void incr(String key) {
+        valueOperations.increment(key);
+    }
+
+    // 自减
+    public void decr(String key) {
+        valueOperations.decrement(key);
     }
 
     /**

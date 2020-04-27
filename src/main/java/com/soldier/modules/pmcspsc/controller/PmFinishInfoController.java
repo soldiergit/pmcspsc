@@ -3,6 +3,7 @@ package com.soldier.modules.pmcspsc.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.soldier.common.annotation.Prevent;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ public class PmFinishInfoController {
     /**
      * 列表
      */
+    @Prevent(value = 600, frequency = 2)
     @RequestMapping("/list")
     @RequiresPermissions("pm:finish:list")
     public R list(@RequestParam Map<String, Object> params){
