@@ -40,7 +40,7 @@ public class PmFinishInfoEntity implements Serializable {
      */
     private Integer userId;
 	/**
-	 * 审核状态
+	 * 审核状态：0-未提交审核，1-未审核，2-已通过，3-未通过
 	 */
 	private Integer finishInfoStatus;
 

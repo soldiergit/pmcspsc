@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import com.soldier.common.annotation.Prevent;
+import com.soldier.common.utils.RabbitMQSender;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,13 +30,17 @@ import com.soldier.common.utils.R;
 @RestController
 @RequestMapping("pm/finish")
 public class PmFinishInfoController {
+
     @Autowired
     private PmFinishInfoService pmFinishInfoService;
+
+    @Autowired
+    private RabbitMQSender rabbitMQSender;
 
     /**
      * 列表
      */
-    @Prevent(value = 600, frequency = 2)
+    @Prevent(value = 5, frequency = 5)
     @RequestMapping("/list")
     @RequiresPermissions("pm:finish:list")
     public R list(@RequestParam Map<String, Object> params){
@@ -58,13 +63,33 @@ public class PmFinishInfoController {
 
     /**
      * 保存
+     * 使用rabbitmq进行改造
      */
     @RequestMapping("/save")
     @RequiresPermissions("pm:finish:save")
     public R save(@RequestBody PmFinishInfoEntity pmFinishInfo){
-		pmFinishInfoService.save(pmFinishInfo);
+
+//		pmFinishInfoService.save(pmFinishInfo);
+        rabbitMQSender.sendMessage(pmFinishInfo);
+
 
         return R.ok();
+    }
+
+    /**
+     * 保存信息轮询
+     * 0：成功
+     * -1：保存失败
+     * 2345： 排队中
+     */
+    @RequestMapping("/saveResultStatus")
+    @RequiresPermissions("pm:finish:save")
+    public R result(@RequestBody PmFinishInfoEntity pmFinishInfo){
+
+        Integer result = pmFinishInfoService.selectFinishSaveStatus(pmFinishInfo);
+
+        if (result == 0) return R.ok();
+        else return R.error(result, "未成功！");
     }
 
     /**

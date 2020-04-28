@@ -1,5 +1,7 @@
 package com.soldier.modules.pmcspsc.service.impl;
 
+import com.soldier.common.utils.RedisUtils;
+import com.soldier.config.RabbitMQConfig;
 import com.soldier.modules.pmcspsc.entity.PmFinishAttachEntity;
 import com.soldier.modules.pmcspsc.entity.PmFundInfoEntity;
 import com.soldier.modules.pmcspsc.entity.PmItemInfoEntity;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -30,6 +33,8 @@ public class PmFinishInfoServiceImpl extends ServiceImpl<PmFinishInfoDao, PmFini
     private PmFundInfoService pmFundInfoService;
     @Autowired
     private PmFinishAttachService pmFinishAttachService;
+    @Autowired
+    private RedisUtils redisUtils;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -63,6 +68,36 @@ public class PmFinishInfoServiceImpl extends ServiceImpl<PmFinishInfoDao, PmFini
         pmFinishInfoEntity.setFinishInfoStatus(Integer.parseInt(params.get("status").toString()));
 
         super.updateById(pmFinishInfoEntity);
+    }
+
+    @Override
+    public Integer selectFinishSaveStatus(PmFinishInfoEntity pmFinishInfo) {
+
+        QueryWrapper ew = new QueryWrapper<PmFinishInfoEntity>().setEntity(new PmFinishInfoEntity());
+        Integer userId = pmFinishInfo.getUserId();
+        Integer itemInfoId = pmFinishInfo.getItemInfoId();
+        if (itemInfoId!=null)ew.eq("item_info_id",itemInfoId);
+        if (userId!=null)ew.eq("user_id",userId);
+
+        List list = this.baseMapper.selectList(ew);
+        // 有数据
+        if (list.size() > 0) {
+            return 0;
+        } else {
+            // 数据库无数据，查询redis
+            // true(0)：成功
+            // false(-1)：保存失败
+            // null(2345)： 排队中
+            String key = RabbitMQConfig.REDIS_KEY + pmFinishInfo.getUserId() +","+pmFinishInfo.getItemInfoId();
+            Boolean saveResult = redisUtils.get(key, Boolean.class);
+            if (saveResult == null) {
+                return 2345;
+            } else if (saveResult) {
+                return 0;
+            } else {
+                return -1;
+            }
+        }
     }
 
     /**

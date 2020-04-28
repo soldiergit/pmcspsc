@@ -35,10 +35,12 @@ public class PmItemInfoServiceImpl extends ServiceImpl<PmItemInfoDao, PmItemInfo
         QueryWrapper ew = new QueryWrapper<PmItemInfoEntity>().setEntity(new PmItemInfoEntity());
 
         Object key = params.get("key");
-        Object status = params.get("itemInfoStatus");
+        Object itemInfoStatus = params.get("itemInfoStatus");
+        Object itemInfoFinish = params.get("itemInfoFinish");
         Object userId = params.get("userId");
         if (key!=null&&key!="")ew.like("match_name",key);
-        if (status!=null&&status!="")ew.eq("item_info_status",status);
+        if (itemInfoStatus!=null&&itemInfoStatus!="")ew.eq("item_info_status",itemInfoStatus);
+        if (itemInfoFinish!=null&&itemInfoFinish!="")ew.eq("item_info_finish",itemInfoFinish);
         if (userId!=null&&userId!="")ew.eq("user_id",userId);
 
         IPage<PmItemInfoEntity> page = this.page(

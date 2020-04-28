@@ -22,6 +22,7 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
       enabled: true
+  #redis
   redis:
     open: true  # 是否开启redis缓存  true开启   false关闭
     database: 0
@@ -35,6 +36,37 @@ spring:
         max-wait: -1ms      # 连接池最大阻塞等待时间（使用负值表示没有限制）
         max-idle: 10      # 连接池中的最大空闲连接
         min-idle: 5       # 连接池中的最小空闲连接
+  #rabbitmq
+  rabbitmq:
+    host: 116.62.48.112
+    port: 5672
+    username: guest
+    password: guest
+    #连接到rabbitMQ的vhost
+    virtual-host: /
+    listener:
+      simple:
+        #消费者数量
+        concurrency: 10
+        max-concurrency: 10
+        #指定一个请求能处理多少个消息，如果有事务的话，必须大于等于transaction数量.
+        prefetch: 1
+        #是否启动时自动启动容器
+        auto-startup: true
+        #决定被拒绝的消息是否重新入队；默认是true（与参数acknowledge-mode有关系）
+        default-requeue-rejected: true
+    template:
+      retry:
+        #发送重试是否可用
+        enabled: true
+        #第一次和第二次尝试发布或传递消息之间的间隔
+        initial-interval: 1000
+        #最大重试次数
+        max-attempts: 3
+        #最大重试时间间隔
+        max-interval: 10000
+        #应用于上一重试间隔的乘数
+        multiplier: 1.0
   mvc:
     throw-exception-if-no-handler-found: true
 #  resources:

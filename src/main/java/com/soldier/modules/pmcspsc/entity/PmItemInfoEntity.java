@@ -79,11 +79,11 @@ public class PmItemInfoEntity implements Serializable {
 	 */
 	private String matchSign;
 	/**
-	 * 审核状态
+	 * 审核状态：0-未提交审核，1-未审核，2-已通过，3-未通过
 	 */
 	private Integer itemInfoStatus;
 	/**
-	 * 是否已经结题
+	 * 是否已经结题 1-已结题	0-未结题
 	 */
 	private Integer itemInfoFinish;
 	/**

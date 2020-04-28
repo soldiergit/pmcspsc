@@ -21,5 +21,7 @@ public interface PmFinishInfoService extends IService<PmFinishInfoEntity> {
      * 审批
      */
     void apply(Map<String, Object> params);
+
+    Integer selectFinishSaveStatus(PmFinishInfoEntity pmFinishInfo);
 }
 

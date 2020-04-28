@@ -134,7 +134,8 @@ vi /usr/lib/rabbitmq/lib/rabbitmq_server-3.6.15/ebin/rabbit.app
 7. 启动RabbitMQ，然后访问IP:5672/，默认用户名密码：guest即可查看<br>
 ```C
 cd /usr/lib/rabbitmq/bin
-./rabbitmq-server start
+前台启动：./rabbitmq-server start
+后台启动（不占用终端）：./rabbitmq-server -detache）
 ```
 #### RabbitMQ的配置
 [SpringBoot + RabbitMQ配置参数解释](https://www.cnblogs.com/qts-hope/p/11242559.html)
