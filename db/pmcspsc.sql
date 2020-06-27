@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.18, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.30, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: pmcspsc
+-- Host: 116.62.48.112    Database: pmcspsc
 -- ------------------------------------------------------
--- Server version	8.0.18-0ubuntu0.19.10.1
+-- Server version	5.7.30
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `pm_finish_attach`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pm_finish_attach` (
   `attach_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `finish_info_id` int(11) DEFAULT NULL COMMENT '结题id',
@@ -29,7 +29,7 @@ CREATE TABLE `pm_finish_attach` (
   `attach_path` varchar(255) DEFAULT NULL COMMENT '附件路径',
   `attach_is_del` int(11) DEFAULT '0' COMMENT '删除标识',
   PRIMARY KEY (`attach_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='结题附件';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='结题附件';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `pm_finish_attach` (
 
 LOCK TABLES `pm_finish_attach` WRITE;
 /*!40000 ALTER TABLE `pm_finish_attach` DISABLE KEYS */;
-INSERT INTO `pm_finish_attach` VALUES (4,1,'pmcspsc.sql','/home/soldier/SOLDIER/IDE_project/idea_project/pmcspsc/target/6974026363079021921/pmcspsc.sql',0);
+INSERT INTO `pm_finish_attach` VALUES (4,1,'pmcspsc.sql','/home/soldier/SOLDIER/IDE_project/idea_project/pmcspsc/target/6974026363079021921/pmcspsc.sql',0),(5,2,'','',0),(6,3,'','',0),(7,4,'','',0);
 /*!40000 ALTER TABLE `pm_finish_attach` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -48,15 +48,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `pm_finish_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pm_finish_info` (
   `finish_info_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
   `item_info_id` int(11) DEFAULT NULL COMMENT '立项项目id',
   `user_id` int(11) DEFAULT NULL COMMENT '结题人',
-  `finish_info_status` int(11) DEFAULT '0' COMMENT '审核状态',
+  `finish_info_status` int(11) DEFAULT '0' COMMENT '审核状态：0-未提交审核，1-未审核，2-已通过，3-未通过',
   `finish_is_del` int(11) DEFAULT '0' COMMENT '删除标识',
   PRIMARY KEY (`finish_info_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='结题信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='结题信息表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `pm_finish_info` (
 
 LOCK TABLES `pm_finish_info` WRITE;
 /*!40000 ALTER TABLE `pm_finish_info` DISABLE KEYS */;
-INSERT INTO `pm_finish_info` VALUES (1,1,2,2,0);
+INSERT INTO `pm_finish_info` VALUES (4,1,2,0,0);
 /*!40000 ALTER TABLE `pm_finish_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -75,7 +75,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `pm_finish_info_retreat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pm_finish_info_retreat` (
   `retreat_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `finish_info_id` int(11) DEFAULT NULL COMMENT '立项结题Id',
@@ -101,7 +101,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `pm_fund_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pm_fund_info` (
   `budget_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
   `item_info_id` int(11) DEFAULT NULL COMMENT '项目立项id',
@@ -119,7 +119,7 @@ CREATE TABLE `pm_fund_info` (
   `total_cost` double DEFAULT NULL COMMENT '合计',
   `budget_info_is_del` int(11) DEFAULT '0' COMMENT '删除标识',
   PRIMARY KEY (`budget_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='经费预算/实际支出信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='经费预算/实际支出信息表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +128,7 @@ CREATE TABLE `pm_fund_info` (
 
 LOCK TABLES `pm_fund_info` WRITE;
 /*!40000 ALTER TABLE `pm_fund_info` DISABLE KEYS */;
-INSERT INTO `pm_fund_info` VALUES (1,1,NULL,20,20,20,20,20,20,20,20,20,20,200,0),(2,2,NULL,10,10,10,10,10,10,10,10,10,10,100,0),(3,1,NULL,20,20,20,20,20,20,20,20,20,20,200,0),(4,NULL,1,11,11,11,1,1,1,1,1,1,1,40,0);
+INSERT INTO `pm_fund_info` VALUES (1,1,NULL,20,20,20,20,20,20,20,20,20,20,200,0),(2,2,NULL,10,10,10,10,10,10,10,10,10,10,100,0),(3,1,NULL,20,20,20,20,20,20,20,20,20,20,200,0),(4,NULL,1,11,11,11,1,1,1,1,1,1,1,40,0),(5,NULL,2,1,1,1,1,1,1,1,1,1,1,10,0),(6,NULL,3,1,1,1,1,1,1,1,1,1,0,9,0),(7,NULL,4,1,1,1,1,1,1,1,1,1,1,10,0);
 /*!40000 ALTER TABLE `pm_fund_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,7 +138,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `pm_item_attach`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pm_item_attach` (
   `attach_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `item_info_id` int(11) DEFAULT NULL COMMENT '项目立项id',
@@ -165,7 +165,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `pm_item_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pm_item_info` (
   `item_info_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '项目id',
   `match_name` varchar(255) DEFAULT NULL COMMENT '赛事名称',
@@ -180,8 +180,8 @@ CREATE TABLE `pm_item_info` (
   `undertake_unit` varchar(255) DEFAULT NULL COMMENT '竞赛承办单位',
   `item_info_time` date DEFAULT NULL COMMENT '申请立项日期',
   `match_sign` text COMMENT '论证组赛的目的和意义',
-  `item_info_status` int(11) DEFAULT '0' COMMENT '审核状态',
-  `item_info_finish` int(11) DEFAULT '0' COMMENT '是否已经结题',
+  `item_info_status` int(11) DEFAULT '0' COMMENT '审核状态：0-未提交审核，1-未审核，2-已通过，3-未通过',
+  `item_info_finish` int(11) DEFAULT '0' COMMENT '是否已经结题：0-否，1-是',
   `item_info_is_del` int(11) DEFAULT '0' COMMENT '删除标识',
   PRIMARY KEY (`item_info_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='项目立项申请表';
@@ -193,7 +193,7 @@ CREATE TABLE `pm_item_info` (
 
 LOCK TABLES `pm_item_info` WRITE;
 /*!40000 ALTER TABLE `pm_item_info` DISABLE KEYS */;
-INSERT INTO `pm_item_info` VALUES (1,'数学竞赛','梧州学院',1,2,'数学竞赛','2019-12-18','2019-12-18','数学竞赛','数学竞赛','数学竞赛','2019-12-03',' Parameters: ee9ba5dc82469d5845e11479f03946ce(String)',2,1,0),(2,'蓝桥杯','蓝桥杯',0,2,'蓝桥杯','2019-12-12','2019-12-26','蓝桥杯','蓝桥杯','蓝桥杯','2019-12-11','1010101010101010101010101010101010101010',3,0,0);
+INSERT INTO `pm_item_info` VALUES (1,'数学竞赛','梧州学院',1,2,'数学竞赛','2019-12-18','2019-12-18','数学竞赛','数学竞赛','数学竞赛','2019-12-03',' Parameters: ee9ba5dc82469d5845e11479f03946ce(String)',2,1,0),(2,'蓝桥杯','蓝桥杯',0,2,'蓝桥杯','2019-12-12','2019-12-26','蓝桥杯','蓝桥杯','蓝桥杯','2019-12-11','1010101010101010101010101010101010101010',1,0,0);
 /*!40000 ALTER TABLE `pm_item_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,7 +203,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `pm_item_info_retreat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pm_item_info_retreat` (
   `retreat_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `item_info_id` int(11) DEFAULT NULL COMMENT '项目立项申请Id',
@@ -229,7 +229,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `pm_team_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pm_team_info` (
   `team_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `item_info_id` int(11) DEFAULT NULL COMMENT '立项id',
@@ -251,7 +251,7 @@ CREATE TABLE `pm_team_info` (
 
 LOCK TABLES `pm_team_info` WRITE;
 /*!40000 ALTER TABLE `pm_team_info` DISABLE KEYS */;
-INSERT INTO `pm_team_info` VALUES (1,NULL,2,'SHUXUE001','XIANGMU001','c.s.m.s.d.SysUserTokenDao.queryByToken   : ==> Parameters: ee9ba5dc82469d5845e11479f03946ce(String)','2019-12-12',3,2,0),(2,1,2,'SHUXUE002','XIANGMU002','SELECT COUNT(1) FROM pm_item_info WHERE (item_info_status = ? AND user_id = ?) ','2019-12-12',NULL,NULL,0),(3,1,2,'SHUXUE003','XIANGMU003','SELECT COUNT(1) FROM pm_item_info WHERE (item_info_status = ? AND user_id = ?) ','2019-12-12',NULL,NULL,0);
+INSERT INTO `pm_team_info` VALUES (1,NULL,2,'SHUXUE001','XIANGMU001','c.s.m.s.d.SysUserTokenDao.queryByToken   : ==> Parameters: ee9ba5dc82469d5845e11479f03946ce(String)','2019-12-12',3,2,0),(2,1,2,'SHUXUE002','XIANGMU002','SELECT COUNT(1) FROM pm_item_info WHERE (item_info_status = ? AND user_id = ?) ','2019-12-12',3,2,0),(3,1,2,'SHUXUE003','XIANGMU003','SELECT COUNT(1) FROM pm_item_info WHERE (item_info_status = ? AND user_id = ?) ','2019-12-12',3,2,0);
 /*!40000 ALTER TABLE `pm_team_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -261,7 +261,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `pm_team_person_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pm_team_person_info` (
   `person_info_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `person_team_info_id` int(11) DEFAULT NULL COMMENT '团队id',
@@ -294,13 +294,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `sys_captcha`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_captcha` (
-  `uuid` char(36) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'uuid',
-  `code` varchar(6) COLLATE utf8mb4_general_ci NOT NULL COMMENT '验证码',
+  `uuid` char(36) NOT NULL COMMENT 'uuid',
+  `code` varchar(6) NOT NULL COMMENT '验证码',
   `expire_time` datetime DEFAULT NULL COMMENT '过期时间',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统验证码';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统验证码';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -309,7 +309,7 @@ CREATE TABLE `sys_captcha` (
 
 LOCK TABLES `sys_captcha` WRITE;
 /*!40000 ALTER TABLE `sys_captcha` DISABLE KEYS */;
-INSERT INTO `sys_captcha` VALUES ('02c97388-bd5f-40b1-8b36-7f1cb68d1bbd','fm66a','2019-12-17 10:43:03'),('04fdc832-ae5c-4fd1-8fdc-9914b421cd68','x3dfb','2019-12-17 10:15:27'),('05ce9695-0773-4f12-8a12-d4a867e4b591','effg7','2019-12-01 20:32:25'),('0cd3c1fb-c62c-43a9-8bbc-3f7e7980c4ce','m6ed2','2019-12-17 10:12:27'),('10ce2f67-61ae-4a55-8fdc-61ffbe2ca12a','5bnmn','2019-12-04 08:26:55'),('13b64535-4743-4c46-8744-4d3b9a1e016e','m7cmx','2019-12-04 08:26:29'),('14c99e3d-98e0-447a-8f16-f5fa2690717f','d6nyn','2019-12-17 10:15:21'),('19d02c28-a52e-4b95-8bb4-f68a504e2b97','5cnc8','2019-12-17 10:16:35'),('1b64a144-d04d-48e7-8024-aa3f4b5bd3dc','2ancg','2019-12-17 10:20:53'),('1df1ae7f-1066-4031-8929-00e6ebef2e8b','g6cx7','2019-12-04 11:12:53'),('22654cd2-ada1-4fdf-837f-f963330da30d','46w44','2019-12-04 08:48:39'),('29c24672-b368-464e-8e7c-30388bb55743','awebc','2019-12-17 10:19:23'),('2b5261d4-3025-4383-8d0e-6144e9dff7d1','xgxx2','2019-12-17 10:31:00'),('32b5a552-b428-439e-8d0e-fca96e5179a3','2egm5','2019-12-01 22:05:04'),('37b67b25-ae3b-4047-86f1-0648761d5eb1','apm6c','2019-12-17 10:19:26'),('45a662b7-8aeb-49ae-89cb-603757fcada8','myce5','2019-12-04 08:26:35'),('47d4ba42-039e-4fe0-8a04-fcf911bfe7c6','ym5a8','2019-12-17 10:40:59'),('4a716e42-c175-4e0e-8825-22807fdff22b','p5yab','2019-12-17 10:16:06'),('558207c0-98af-4502-8480-46fe676021f7','m8f33','2019-12-17 10:18:23'),('621a8ee8-fffd-44bf-88f1-f80772374398','nxgwg','2019-12-17 10:15:58'),('62f621ee-3f70-4b38-8e23-3680cf991ce7','p3bam','2019-12-04 08:28:39'),('669003ae-6c62-4091-8f18-151e8cbf68f7','gp6n6','2019-12-17 10:14:04'),('6c6c9048-684e-400e-8e52-0583b943cc55','82gag','2019-12-04 08:29:51'),('726b4924-3337-4d10-861f-0a7d0fd843ab','fcdan','2019-12-17 10:18:44'),('7717c6dd-83a8-43de-8fb9-19f07ef06106','8d6pb','2019-12-17 10:43:02'),('87be3884-49e9-4467-8389-3c9e9610d327','7wa5d','2019-12-17 10:12:32'),('a864e335-252a-43c0-8e21-43d362d7fbf3','d4pyd','2019-12-17 10:43:01'),('ad2be80a-9f4e-48a5-8368-298f90b0d5de','4bxbx','2019-12-17 10:43:02'),('c16fbacf-734d-412f-8535-caee26af8076','ey87e','2019-12-17 10:12:45'),('c17b9741-1b1c-459b-81ad-8d02cb8b85e7','4d8cc','2019-12-17 10:43:02'),('c87d0887-2a1b-4dd0-80f3-c49dc7e2e523','px58g','2019-12-17 10:43:02'),('d75db6f9-a307-4af3-8450-b7aa0d69870f','76mwy','2019-12-17 10:43:03'),('d7778325-1058-4ecb-8593-cfcc6de26a23','b8m44','2019-12-01 20:37:16'),('d9037790-b1d6-4129-896f-eed9753523f8','m7apf','2019-12-17 10:18:33'),('df0c9372-b7c1-4641-84b9-7416ebceca9a','8a6nx','2019-12-17 10:16:16'),('ec787223-3271-4845-8268-a1a507b41878','3a35n','2019-12-17 10:16:11'),('edc810d4-b18b-4779-881e-283fd2a4a02f','8mpb3','2019-12-17 10:21:24'),('f3f933b1-3c9a-4e50-8f07-45ecfa94e9f7','nxb47','2019-12-17 10:18:16'),('ff1fa37f-7f53-46f1-8457-c52b1f3fff24','4n2n5','2019-12-17 10:10:55');
+INSERT INTO `sys_captcha` VALUES ('02c97388-bd5f-40b1-8b36-7f1cb68d1bbd','fm66a','2019-12-17 10:43:03'),('04fdc832-ae5c-4fd1-8fdc-9914b421cd68','x3dfb','2019-12-17 10:15:27'),('05ce9695-0773-4f12-8a12-d4a867e4b591','effg7','2019-12-01 20:32:25'),('0cd3c1fb-c62c-43a9-8bbc-3f7e7980c4ce','m6ed2','2019-12-17 10:12:27'),('0eeb0935-5926-4cb0-83a4-5e739aa785c0','na4xc','2020-06-27 09:12:00'),('10ce2f67-61ae-4a55-8fdc-61ffbe2ca12a','5bnmn','2019-12-04 08:26:55'),('13b64535-4743-4c46-8744-4d3b9a1e016e','m7cmx','2019-12-04 08:26:29'),('14c99e3d-98e0-447a-8f16-f5fa2690717f','d6nyn','2019-12-17 10:15:21'),('19d02c28-a52e-4b95-8bb4-f68a504e2b97','5cnc8','2019-12-17 10:16:35'),('1b64a144-d04d-48e7-8024-aa3f4b5bd3dc','2ancg','2019-12-17 10:20:53'),('1df1ae7f-1066-4031-8929-00e6ebef2e8b','g6cx7','2019-12-04 11:12:53'),('22654cd2-ada1-4fdf-837f-f963330da30d','46w44','2019-12-04 08:48:39'),('29c24672-b368-464e-8e7c-30388bb55743','awebc','2019-12-17 10:19:23'),('2b5261d4-3025-4383-8d0e-6144e9dff7d1','xgxx2','2019-12-17 10:31:00'),('32b5a552-b428-439e-8d0e-fca96e5179a3','2egm5','2019-12-01 22:05:04'),('37b67b25-ae3b-4047-86f1-0648761d5eb1','apm6c','2019-12-17 10:19:26'),('45a662b7-8aeb-49ae-89cb-603757fcada8','myce5','2019-12-04 08:26:35'),('47d4ba42-039e-4fe0-8a04-fcf911bfe7c6','ym5a8','2019-12-17 10:40:59'),('4a716e42-c175-4e0e-8825-22807fdff22b','p5yab','2019-12-17 10:16:06'),('558207c0-98af-4502-8480-46fe676021f7','m8f33','2019-12-17 10:18:23'),('621a8ee8-fffd-44bf-88f1-f80772374398','nxgwg','2019-12-17 10:15:58'),('62f621ee-3f70-4b38-8e23-3680cf991ce7','p3bam','2019-12-04 08:28:39'),('669003ae-6c62-4091-8f18-151e8cbf68f7','gp6n6','2019-12-17 10:14:04'),('6c6c9048-684e-400e-8e52-0583b943cc55','82gag','2019-12-04 08:29:51'),('726b4924-3337-4d10-861f-0a7d0fd843ab','fcdan','2019-12-17 10:18:44'),('7717c6dd-83a8-43de-8fb9-19f07ef06106','8d6pb','2019-12-17 10:43:02'),('87be3884-49e9-4467-8389-3c9e9610d327','7wa5d','2019-12-17 10:12:32'),('a864e335-252a-43c0-8e21-43d362d7fbf3','d4pyd','2019-12-17 10:43:01'),('ad2be80a-9f4e-48a5-8368-298f90b0d5de','4bxbx','2019-12-17 10:43:02'),('b3e48b1d-e1bd-43e7-8cb1-cbbd598ca3de','3dygn','2020-04-27 17:37:59'),('b769bc98-ee01-457d-8f45-3f4f9e88b19d','4w4wc','2020-04-28 09:12:11'),('ba71adc0-2454-4c8e-882d-3df6145cd0eb','42mcx','2020-06-27 09:11:58'),('c16fbacf-734d-412f-8535-caee26af8076','ey87e','2019-12-17 10:12:45'),('c17b9741-1b1c-459b-81ad-8d02cb8b85e7','4d8cc','2019-12-17 10:43:02'),('c87d0887-2a1b-4dd0-80f3-c49dc7e2e523','px58g','2019-12-17 10:43:02'),('d75db6f9-a307-4af3-8450-b7aa0d69870f','76mwy','2019-12-17 10:43:03'),('d7778325-1058-4ecb-8593-cfcc6de26a23','b8m44','2019-12-01 20:37:16'),('d9037790-b1d6-4129-896f-eed9753523f8','m7apf','2019-12-17 10:18:33'),('df0c9372-b7c1-4641-84b9-7416ebceca9a','8a6nx','2019-12-17 10:16:16'),('ec787223-3271-4845-8268-a1a507b41878','3a35n','2019-12-17 10:16:11'),('edc810d4-b18b-4779-881e-283fd2a4a02f','8mpb3','2019-12-17 10:21:24'),('f0782c1b-4b53-403a-81f6-bd5f8df11fe0','mwg65','2020-04-27 17:34:18'),('f3f933b1-3c9a-4e50-8f07-45ecfa94e9f7','nxb47','2019-12-17 10:18:16'),('ff1fa37f-7f53-46f1-8457-c52b1f3fff24','4n2n5','2019-12-17 10:10:55');
 /*!40000 ALTER TABLE `sys_captcha` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,18 +319,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `sys_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户名',
-  `operation` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户操作',
-  `method` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求方法',
-  `params` varchar(5000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求参数',
+  `username` varchar(50) DEFAULT NULL COMMENT '用户名',
+  `operation` varchar(50) DEFAULT NULL COMMENT '用户操作',
+  `method` varchar(200) DEFAULT NULL COMMENT '请求方法',
+  `params` varchar(5000) DEFAULT NULL COMMENT '请求参数',
   `time` bigint(20) NOT NULL COMMENT '执行时长(毫秒)',
-  `ip` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'IP地址',
+  `ip` varchar(64) DEFAULT NULL COMMENT 'IP地址',
   `create_date` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统日志';
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COMMENT='系统日志';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -349,18 +349,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `sys_menu`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_menu` (
   `menu_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `parent_id` bigint(20) DEFAULT NULL COMMENT '父菜单ID，一级菜单为0',
-  `name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '菜单名称',
-  `url` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '菜单URL',
-  `perms` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '授权(多个用逗号分隔，如：user:list,user:create)',
+  `name` varchar(50) DEFAULT NULL COMMENT '菜单名称',
+  `url` varchar(200) DEFAULT NULL COMMENT '菜单URL',
+  `perms` varchar(500) DEFAULT NULL COMMENT '授权(多个用逗号分隔，如：user:list,user:create)',
   `type` int(11) DEFAULT NULL COMMENT '类型   0：目录   1：菜单   2：按钮',
-  `icon` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '菜单图标',
+  `icon` varchar(50) DEFAULT NULL COMMENT '菜单图标',
   `order_num` int(11) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='菜单管理';
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COMMENT='菜单管理';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -379,15 +379,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `sys_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_role` (
   `role_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '角色名称',
-  `remark` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
+  `role_name` varchar(100) DEFAULT NULL COMMENT '角色名称',
+  `remark` varchar(100) DEFAULT NULL COMMENT '备注',
   `create_user_id` bigint(20) DEFAULT NULL COMMENT '创建者ID',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='角色';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,13 +406,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `sys_role_menu`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_role_menu` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
   `menu_id` bigint(20) DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色与菜单对应关系';
+) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4 COMMENT='角色与菜单对应关系';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -431,20 +431,20 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `sys_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_user` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名',
-  `password` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '密码',
-  `salt` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '盐',
-  `email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '邮箱',
-  `mobile` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
+  `username` varchar(50) NOT NULL COMMENT '用户名',
+  `password` varchar(100) DEFAULT NULL COMMENT '密码',
+  `salt` varchar(20) DEFAULT NULL COMMENT '盐',
+  `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
+  `mobile` varchar(100) DEFAULT NULL COMMENT '手机号',
   `status` tinyint(4) DEFAULT NULL COMMENT '状态  0：禁用   1：正常',
   `create_user_id` bigint(20) DEFAULT NULL COMMENT '创建者ID',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统用户';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='系统用户';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -463,13 +463,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `sys_user_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_user_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户ID',
   `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户与角色对应关系';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='用户与角色对应关系';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -488,15 +488,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `sys_user_token`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_user_token` (
   `user_id` bigint(20) NOT NULL,
-  `token` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'token',
+  `token` varchar(100) NOT NULL COMMENT 'token',
   `expire_time` datetime DEFAULT NULL COMMENT '过期时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `token` (`token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统用户Token';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统用户Token';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -505,7 +505,7 @@ CREATE TABLE `sys_user_token` (
 
 LOCK TABLES `sys_user_token` WRITE;
 /*!40000 ALTER TABLE `sys_user_token` DISABLE KEYS */;
-INSERT INTO `sys_user_token` VALUES (1,'d246a7fdc4cc4993c2821f64fa152aca','2019-12-24 20:29:26','2019-12-24 08:29:26'),(2,'19773d39603be9ae74593167c94e1270','2019-12-17 22:38:58','2019-12-17 10:38:58'),(3,'363361c087d59b1a0bc9e236efee9bfc','2019-12-05 04:35:42','2019-12-04 16:35:42');
+INSERT INTO `sys_user_token` VALUES (1,'de05c81c431e14e0b0dd7a39ca7a4a59','2020-04-28 21:07:20','2020-04-28 09:07:20'),(2,'ed61543a2d6e0b343ae28fded83177fe','2020-04-28 21:07:40','2020-04-28 09:07:40'),(3,'363361c087d59b1a0bc9e236efee9bfc','2019-12-05 04:35:42','2019-12-04 16:35:42');
 /*!40000 ALTER TABLE `sys_user_token` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -518,4 +518,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-24  9:14:42
+-- Dump completed on 2020-06-27 10:26:02

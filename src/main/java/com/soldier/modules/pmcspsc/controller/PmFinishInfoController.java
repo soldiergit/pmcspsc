@@ -40,7 +40,7 @@ public class PmFinishInfoController {
     /**
      * 列表
      */
-    @Prevent(value = 5, frequency = 5)
+    @Prevent(value = 100, frequency = 20)
     @RequestMapping("/list")
     @RequiresPermissions("pm:finish:list")
     public R list(@RequestParam Map<String, Object> params){

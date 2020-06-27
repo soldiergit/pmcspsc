@@ -4,6 +4,7 @@
 pmcspsc
 
 #### _2019年秋季大三第一学期，JAVAEE期末课设_
+#### _2020年春季大三第二学期，SpringBoot消息中间件期末课设_
 技术要求：spring boot，spring mvc，mybatis，mybatis plus
 
 #### 构建项目
@@ -110,37 +111,15 @@ CREATE SCHEMA pmcspsc DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 ## `2020.04.27重构`
 ### `使用RabbitMQ消息中间件`
 #### RabbitMQ的安装
-1. 下载[Erlang](https://www.rabbitmq.com/releases/erlang/)<br>
-2. 下载[RabbitMQ](https://www.rabbitmq.com/releases/rabbitmq-server/)<br>
-3. 根据系统版本下载[socat](http://repo.iotti.biz/CentOS/)<br>
-```C
-查看系统版本信息：lsb_release -a
-```
-4. 分别安装Erlang、Socat、RabbitMQ（一定按照顺序！）<br>
-```C
-wget https://www.rabbitmq.com/releases/erlang/erlang-19.0.4-1.el7.centos.x86_64.rpm
-wget https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.15/rabbitmq-server-3.6.15-1.el6.noarch.rpm
-wget http://repo.iotti.biz/CentOS/7/x86_64/socat-1.7.3.2-5.el7.lux.x86_64.rpm
-rpm -ivh erlang-19.0.4-1.el7.centos.x86_64.rpm
-rpm -ivh socat-1.7.3.2-5.el7.lux.x86_64.rpm
-rpm -ivh rabbitmq-server-3.6.15-1.el6.noarch.rpm
-```
-5. 配置rabbitmq<br>
-```C
-vi /usr/lib/rabbitmq/lib/rabbitmq_server-3.6.15/ebin/rabbit.app
-将 {loopback_users, [<<"guest">>]} 改为 {loopback_users, []}
-```
-6. 安装管理插件：rabbitmq-plugins enable rabbitmq_management<br>
-7. 启动RabbitMQ，然后访问IP:5672/，默认用户名密码：guest即可查看<br>
-```C
-cd /usr/lib/rabbitmq/bin
-前台启动：./rabbitmq-server start
-后台启动（不占用终端）：./rabbitmq-server -detache）
-```
+[RabbitMQ的安装过程](https://www.cnblogs.com/HuangJie-sol/p/13197866.html)
 #### RabbitMQ的配置
 [SpringBoot + RabbitMQ配置参数解释](https://www.cnblogs.com/qts-hope/p/11242559.html)
 
 ### `安全优化`
+#### redis的安装
+1. docker下拉redis镜像：docker pull docker.io/redis
+2. 启动容器：docker run -d  --name redis1  -p 6379:6379  redis --requirepass "123456"
+3. 参数解释：     -d : 后台运行   -name 为容器的名字    -p 端口映射   --requirepass：redis密码    redis为镜像名
 #### 接口的限流防刷
 自定义Prevent注解，可以使用拦截器减少对业务的侵入
 ```C

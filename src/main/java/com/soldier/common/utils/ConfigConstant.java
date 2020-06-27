@@ -21,7 +21,7 @@ public class ConfigConstant {
     /**
      * 文件保存路径
      */
-    public final static String UPLOAD_FILE_SAVE_PATH = "/home/soldier/SOLDIER/IDE_project/idea_project/pmcspsc/target";
+    public final static String UPLOAD_FILE_SAVE_PATH = "/home/soldier/DATA/IDE_project/IdeaProjects/pmcspsc/target";
     /**
      * 审核状态
      */
