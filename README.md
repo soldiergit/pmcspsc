@@ -111,7 +111,7 @@ CREATE SCHEMA pmcspsc DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 ## `2020.04.27重构`
 ### `使用RabbitMQ消息中间件`
 #### RabbitMQ的安装
-[RabbitMQ的安装过程](https://www.cnblogs.com/HuangJie-sol/p/13197866.html)
+[RabbitMQ的安装过程](https://www.cnblogs.com/soldier-cnblogs/p/13197866.html)
 #### RabbitMQ的配置
 [SpringBoot + RabbitMQ配置参数解释](https://www.cnblogs.com/qts-hope/p/11242559.html)
 
